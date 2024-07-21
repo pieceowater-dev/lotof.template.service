@@ -10,7 +10,7 @@ export class TemplateController {
   @EventPattern('ping')
   handlePing(): string {
     console.log('got PING, sends PONG!');
-    return 'PONG!';
+    return 'PONG';
   }
   @EventPattern('template-event-pattern')
   async handleEvent(data: any) {
