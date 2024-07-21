@@ -1,1 +1,1 @@
-# lotof.hub.service
+# lotof.template.service
