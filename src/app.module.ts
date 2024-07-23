@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ConfigAppModule } from './config/config.module';
+import { ConfigAppModule } from './core/config/config.module';
 import { TemplateModule } from './modules/template/template.module';
 
 @Module({
