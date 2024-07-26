@@ -5,9 +5,11 @@ import { bootstrap } from '@pieceowater-dev/lotof.lib.broadcaster';
 
 bootstrap(AppModule, {
   portEnvVar: 'PORT',
-  microservices: [{
-    transport: Transport.RMQ,
-    urlEnvVars: ['RABBITMQ_URL'],
-    queue: 'template_queue'
-  }]
-}).then(r => console.log('ok'))
+  microservices: [
+    {
+      transport: Transport.RMQ,
+      urlEnvVars: ['RABBITMQ_URL'],
+      queue: 'template_queue',
+    },
+  ],
+}).then((r) => console.log('ok'));
