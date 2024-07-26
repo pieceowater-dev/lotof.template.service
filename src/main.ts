@@ -9,9 +9,9 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
 
   // noinspection TypeScriptValidateTypes
-  const rabbitMQUrl = configService.get<string>('RABBITMQ_URL');
+  const rabbitMQUrl = configService.get<string>('rabbitUrl');
   // noinspection TypeScriptValidateTypes
-  const port = configService.get<number>('PORT') || 3000;
+  const port = configService.get<number>('port') || 3000;
 
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.RMQ,
