@@ -1,0 +1,43 @@
+import { Inject, Injectable } from '@nestjs/common';
+import { CreateItemDto } from './dto/create-item.dto';
+import { UpdateItemDto } from './dto/update-item.dto';
+import { Item } from './entities/item.entity';
+import { PaginatedEntity } from '../../utils/paginated.entity';
+import { Repository } from 'typeorm';
+import { toPaginated } from '../../utils/toPaginated';
+import { DefaultFilter } from '../../utils/default.filter';
+
+@Injectable()
+export class ItemService {
+  constructor(
+    @Inject('ITEM_REPOSITORY')
+    private postRepository: Repository<Item>,
+  ) {}
+
+  async create(createItemDto: CreateItemDto): Promise<Item> {
+    return await this.postRepository.save(createItemDto);
+  }
+
+  async findAll(data: DefaultFilter<Item>): Promise<PaginatedEntity<Item>> {
+    return await this.postRepository
+      .findAndCount({
+        where: {
+          name: data.search,
+        },
+        skip: data.paginated.page * data.paginated.length,
+        take: data.paginated.length,
+        order: {
+          [data.sort.field ?? 'id']: data.sort.by ?? 'DESC',
+        },
+      })
+      .then(toPaginated<Item>);
+  }
+
+  async findOne(id: number): Promise<Item> {
+    return await this.postRepository.findOneByOrFail({ id });
+  }
+
+  async update(id: number, updateItemDto: UpdateItemDto): Promise<Item> {
+    return await this.postRepository.save({ id, ...updateItemDto });
+  }
+}
