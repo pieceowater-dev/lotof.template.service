@@ -17,5 +17,5 @@ export class Paginated {
 export class DefaultFilter<T> {
   search: string;
   sort: Sort<T>;
-  paginated: Paginated;
+  pagination: Paginated;
 }

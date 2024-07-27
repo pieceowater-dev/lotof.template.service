@@ -24,8 +24,8 @@ export class ItemService {
         where: {
           name: data.search,
         },
-        skip: data.paginated.page * data.paginated.length,
-        take: data.paginated.length,
+        skip: data.pagination.page * data.pagination.length,
+        take: data.pagination.length,
         order: {
           [data.sort.field ?? 'id']: data.sort.by ?? 'DESC',
         },
