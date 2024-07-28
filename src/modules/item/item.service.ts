@@ -3,7 +3,7 @@ import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { Item } from './entities/item.entity';
 import { PaginatedEntity } from '../../utils/paginated.entity';
-import { Repository } from 'typeorm';
+import { Repository, ILike } from 'typeorm';
 import { toPaginated } from '../../utils/toPaginated';
 import { DefaultFilter } from '../../utils/default.filter';
 
@@ -22,7 +22,8 @@ export class ItemService {
     return await this.postRepository
       .findAndCount({
         where: {
-          name: data.search,
+          name:
+            data.search !== undefined ? ILike(data.search ?? '') : undefined,
         },
         skip: data.pagination.page * data.pagination.length,
         take: data.pagination.length,
