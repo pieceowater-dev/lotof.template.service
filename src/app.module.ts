@@ -1,18 +1,15 @@
-// src/app.module.ts
-import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ConfigAppModule } from './core/config/config.module';
-import { ItemModule } from './modules/item/item.module';
-import { DatabaseModule } from './core/database/database.module';
-import { HealthModule } from './modules/health/health.module';
+// src/main.ts
+import { AppModule } from './app.module';
+import { Transport } from '@nestjs/microservices';
+import { bootstrap } from '@pieceowater-dev/lotof.lib.broadcaster';
 
-@Module({
-  imports: [
-    DatabaseModule,
-    ConfigAppModule,
-    HealthModule,
-    ItemModule,
+bootstrap(AppModule, {
+  portEnvVar: 'PORT',
+  microservices: [
+    {
+      transport: Transport.RMQ,
+      urlEnvVars: ['RABBITMQ_URL'],
+      queue: 'template_queue',
+    },
   ],
-})
-export class AppModule {}
+}).then((r) => console.log('Booted successfully 🚀'));
