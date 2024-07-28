@@ -1,11 +1,10 @@
-// src/modules/template/template.controller.ts
+// src/modules/health/health.controller.ts
 import { Controller } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
-import { TemplateService } from './template.service';
 
 @Controller()
-export class TemplateController {
-  constructor(private readonly templateService: TemplateService) {}
+export class HealthController {
+  constructor() {}
 
   @EventPattern('ping')
   handlePing(): string {
@@ -16,6 +15,5 @@ export class TemplateController {
   async handleEvent(data: any) {
     console.log('new data from RabbitMQ:');
     console.log(data);
-    // Handle incoming data from RabbitMQ
   }
 }
