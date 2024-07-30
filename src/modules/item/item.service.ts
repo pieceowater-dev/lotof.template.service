@@ -11,15 +11,15 @@ import { DefaultFilter } from '../../utils/default.filter';
 export class ItemService {
   constructor(
     @Inject('ITEM_REPOSITORY')
-    private postRepository: Repository<Item>,
+    private itemRepository: Repository<Item>,
   ) {}
 
   async create(createItemDto: CreateItemDto): Promise<Item> {
-    return await this.postRepository.save(createItemDto);
+    return await this.itemRepository.save(createItemDto);
   }
 
   async findAll(data: DefaultFilter<Item>): Promise<PaginatedEntity<Item>> {
-    return await this.postRepository
+    return await this.itemRepository
       .findAndCount({
         where: {
           name:
@@ -35,10 +35,10 @@ export class ItemService {
   }
 
   async findOne(id: number): Promise<Item> {
-    return await this.postRepository.findOneByOrFail({ id });
+    return await this.itemRepository.findOneByOrFail({ id });
   }
 
   async update(id: number, updateItemDto: UpdateItemDto): Promise<Item> {
-    return await this.postRepository.save({ id, ...updateItemDto });
+    return await this.itemRepository.save({ id, ...updateItemDto });
   }
 }
