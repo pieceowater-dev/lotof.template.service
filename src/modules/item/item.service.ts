@@ -22,8 +22,7 @@ export class ItemService {
     return await this.itemRepository
       .findAndCount({
         where: {
-          name:
-            data.search !== undefined ? ILike(data.search ?? '') : undefined,
+          name: ILike(`%${data.search?.toLowerCase()}%`),
         },
         skip: data.pagination.page * data.pagination.length,
         take: data.pagination.length,
