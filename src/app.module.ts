@@ -6,11 +6,6 @@ import { DatabaseModule } from './core/database/database.module';
 import { HealthModule } from './modules/health/health.module';
 
 @Module({
-  imports: [
-    DatabaseModule,
-    ConfigAppModule,
-    HealthModule,
-    ItemModule,
-  ],
+  imports: [DatabaseModule, ConfigAppModule, HealthModule, ItemModule],
 })
 export class AppModule {}
